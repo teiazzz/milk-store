@@ -1,101 +1,154 @@
-# 奶茶点单小程序
+# NovaMall 星选商城
 
-## 项目介绍
-这是一个基于uni-app开发的奶茶点单微信小程序，提供奶茶店线上点单、外卖配送等功能，让用户随时随地享受美味奶茶。项目采用前后端分离架构，前端使用uni-app实现跨平台开发，后端使用Spring Boot提供API服务，数据存储使用MySQL数据库。
+NovaMall 是一个采用 **Java Spring Boot + Vue 3** 构建的前后端分离商城项目，由原 `milk-store` 项目重新设计与重构。项目提供从商品浏览、搜索筛选、购物车到提交订单、查看订单的完整基础购物流程，适合作为全栈学习、课程设计或二次开发脚手架。
 
-## 项目进度
-- [x] 用户认证模块（验证码登录）
-- [x] 产品展示模块
-- [x] 分类管理模块
-- [x] 轮播图管理
-- [x] 城市门店模块
-- [x] 会员勋章系统
-- [x] 优惠券系统
-- [ ] 购物车模块
-- [ ] 订单管理模块
-- [ ] 支付集成
-- [ ] 用户地址管理
+## 项目亮点
 
-## 功能特点
-- 精美首页：展示热门产品、优惠活动、季节限定产品和会员福利
-- 便捷点单：分类浏览奶茶产品，自定义糖度、冰量和配料
-- 多元支付：支持微信支付、会员卡支付和积分抵扣
-- 门店导航：基于地理位置显示附近门店，提供详细地址和距离信息
-- 订单管理：查看历史订单，追踪订单制作和配送状态
-- 会员系统：会员积分累计、等级提升、优惠券和专属活动
-- 勋章收集：二十四节气限定、大自然限定等多种特色勋章
-- 个性化推荐：基于用户购买习惯推荐可能喜欢的产品
+- 现代化响应式商城首页，适配桌面端与移动端
+- 商品分类、关键词搜索、精选商品与实时库存展示
+- 本地购物车、数量调整和订单金额计算
+- 收货信息校验、库存扣减、订单创建与订单查询
+- Spring Boot 统一异常响应与事务控制
+- 默认使用 H2 内存数据库，克隆后无需安装数据库即可运行
+- 提供 MySQL 8 配置和 Docker Compose，可切换为持久化存储
+- 前后端接口通过 Vite Proxy 联调，避免本地跨域问题
 
-## 技术架构
-### 前端
-- 框架：uni-app
-- 开发语言：Vue 3 (组合式API)
-- 样式处理：SCSS
-- 状态管理：Vuex/Pinia
-- 部署平台：微信小程序
+## 技术栈
 
-### 后端
-- 框架：Spring Boot
-- 数据库：MySQL
-- ORM：MyBatis
-- 身份验证：JWT
-- API文档：已提供完整API接口文档
+| 模块 | 技术 |
+| --- | --- |
+| 前端 | Vue 3、Composition API、Vite、原生 CSS |
+| 后端 | Java 17、Spring Boot 3、Spring Web、Spring JDBC、Bean Validation |
+| 数据库 | H2（默认）、MySQL 8（可选） |
+| 构建工具 | Maven、npm |
 
-## 页面结构
-- 首页：轮播广告、活动推广、热门产品和功能入口
-- 点单页：分类菜单浏览、产品详情和购物车
-- 订单确认页：配送信息、支付方式和优惠券选择
-- 订单页：订单列表、订单状态和配送追踪
-- 订单详情：订单信息、状态更新和订单操作
-- 我的页面：用户信息、会员等级和功能入口
-- 地图选择页：门店定位、城市选择和距离计算
-- 勋章墙：用户获得的成就勋章展示
+## 目录结构
 
-## 安装和运行
-### 前端
-1. 克隆仓库
-```bash
-git clone https://gitee.com/team-615/milk-store.git
+```text
+NovaMall/
+├─ backend/                         # Spring Boot 后端
+│  ├─ src/main/java/com/novamall/  # API、业务逻辑与 DTO
+│  ├─ src/main/resources/           # 配置、建表和演示数据
+│  ├─ src/test/                     # 后端接口测试
+│  └─ pom.xml
+├─ frontend/                        # Vue 3 前端
+│  ├─ src/App.vue                   # 商城主界面
+│  ├─ src/api.js                    # API 请求封装
+│  ├─ src/styles.css                # 响应式样式
+│  └─ package.json
+├─ docker-compose.yml               # 可选 MySQL 服务
+└─ README.md
 ```
 
-2. 安装依赖
+## 快速开始
+
+### 环境要求
+
+- JDK 17 或更高版本
+- Maven 3.9+
+- Node.js 18+
+- npm 9+
+
+### 1. 启动后端
+
 ```bash
+cd backend
+mvn spring-boot:run
+```
+
+后端默认运行在 `http://localhost:8080`，H2 控制台地址为 `http://localhost:8080/h2-console`。
+
+H2 连接信息：
+
+```text
+JDBC URL: jdbc:h2:mem:novamall
+User Name: sa
+Password: （留空）
+```
+
+### 2. 启动前端
+
+另开一个终端：
+
+```bash
+cd frontend
 npm install
+npm run dev
 ```
 
-3. 运行项目
+浏览器访问 `http://localhost:5173`。
+
+## 使用 MySQL
+
+1. 启动 MySQL 容器：
+
 ```bash
-npm run dev:mp-weixin
+docker compose up -d mysql
 ```
 
-4. 使用微信开发者工具打开项目目录下的`dist/dev/mp-weixin`文件夹
+2. 使用 `mysql` Profile 启动后端：
 
-### 后端
-1. 克隆后端仓库
 ```bash
-git clone https://gitee.com/team-615/milkStore-backend.git
+cd backend
+mvn spring-boot:run -Dspring-boot.run.profiles=mysql
 ```
 
-2. 配置数据库
-- 创建MySQL数据库
-- 执行`src/main/resources/sql`目录下的SQL脚本初始化数据库表和示例数据
+默认账号和密码均为 `root`。也可以通过环境变量覆盖：
 
-3. 配置应用
-- 修改`application.properties`中的数据库连接信息
+```text
+DB_URL
+DB_USERNAME
+DB_PASSWORD
+```
 
-4. 运行应用
+首次使用现有 MySQL 服务时，请执行 `backend/src/main/resources/schema-mysql.sql` 建表，并按需录入商品数据。
+
+## API 接口
+
+| 方法 | 地址 | 说明 |
+| --- | --- | --- |
+| GET | `/api/products` | 商品列表，支持 `keyword`、`category` 参数 |
+| GET | `/api/categories` | 商品分类列表 |
+| GET | `/api/orders` | 查询全部订单 |
+| GET | `/api/orders/{orderNo}` | 根据订单号查询订单 |
+| POST | `/api/orders` | 创建订单并扣减库存 |
+
+创建订单示例：
+
+```json
+{
+  "customerName": "张三",
+  "phone": "13800138000",
+  "address": "上海市浦东新区示例路 1 号",
+  "items": [
+    { "productId": 1, "quantity": 2 }
+  ]
+}
+```
+
+## 构建与测试
+
 ```bash
-./mvnw spring-boot:run
+cd backend
+mvn test
+mvn package
 ```
 
-## 项目截图
-(项目截图将在开发完成后添加)
+```bash
+cd frontend
+npm install
+npm run build
+```
 
-## API文档
-详细API接口文档请参考项目中的`奶茶店API接口文档.md`文件，其中包含了所有后端接口的地址和参数说明。
+## 后续可扩展方向
 
-## 贡献指南
-欢迎提交Issue和Pull Request，一起完善这个项目！
+- JWT 登录、用户中心与角色权限
+- 商品和订单管理后台
+- Redis 购物车与库存缓存
+- 支付平台与物流接口
+- 图片上传、对象存储和商品评价
+- Elasticsearch 商品检索
 
-## 许可证
-MIT License
+## License
+
+[MIT](LICENSE)

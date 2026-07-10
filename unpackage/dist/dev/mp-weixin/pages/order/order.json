@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "uni-icons": "../../uni_modules/uni-icons/components/uni-icons/uni-icons",
-    "shop-detail": "../components/shop-detail",
-    "order-cart": "../components/order-cart"
-  }
-}
